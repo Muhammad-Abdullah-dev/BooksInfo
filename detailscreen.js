@@ -94,7 +94,7 @@ handleauthornames = () => {
                    
                    <Text> ISBN: {this.state.item.isbn}   </Text>        
                  <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
-                 
+                 <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
         </View> 
         
 
