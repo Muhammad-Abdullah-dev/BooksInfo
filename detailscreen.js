@@ -1,5 +1,5 @@
 import {createStackNavigator, createAppContainer} from 'react-navigation';
-import { StyleSheet,View,Button,Text,TouchableOpacity,Image } from 'react-native';
+import { StyleSheet,Dimensions,View,Button,Text,TouchableOpacity,Image,ScrollView } from 'react-native';
 import React, { Component } from 'react';
 // import console = require('console');
 
@@ -9,19 +9,24 @@ export default class detailscreen extends React.Component {
     constructor(){
         super()
         this.state = {
-          item: "empty"
+          item: "empty",
+          screenWidth: "",
+          screenHeight: ""
         }    
     }
     componentDidMount(){
-      
+      const screenWidth = Math.round(Dimensions.get('window').width);  
+      const screenHeight = Math.round(Dimensions.get('window').height);  
       this.setState({
           item : this.props.navigation.getParam('itemId', 'NO-ID') ,
-          
-
+          screenWidth: screenWidth,
+           screenHeight: screenHeight
+    
       })
      
   }
 
+  
 
 
   static navigationOptions = ({ navigation }) => {
@@ -62,10 +67,17 @@ handleauthornames = () => {
   if (this.state.item !== "empty")
   {
     var back = this.state.item.authors.map((item, key)=>{ 
-     return(   <Text key={key} style = {{marginLeft:25,color:'blue'}} > { item }  </Text>)
+     return(  
+     
+       < Text key={key} style = {{marginRight:10,color:'blue'}} > { item }  </Text>  
+      
+      
+      
+     
+    
+     )
     })
-    console.log("in function")
-    console.log(back)
+    
     return back;
   }
   return null;
@@ -77,29 +89,40 @@ handleauthornames = () => {
       console.log("short")
       console.log(this.state.item.shortDescription)
       return (
-       
-      <View style={styles.container}>
+       <ScrollView>  
+         
+         <View style={styles.container}>
          
         <View > 
           <Image style={{width: 180,height:180,marginTop:10,marginLeft:90 }}
                     source={{ uri: this.state.item.thumbnailUrl }} />
-                    <Text style={{marginTop:5,marginLeft:25,color:'blue'}}>
+                    <Text style={{marginTop:5,marginLeft:5,color:'blue'}}>
                       Authours: 
                      </Text>
-
+                     <View style = {{flexDirection:'row',alignItems:'flex-start',flexWrap: 'wrap'}}> 
                        {this.handleauthornames() }
 
-
+                     </View> 
                     
                    
                    <Text> ISBN: {this.state.item.isbn}   </Text>        
+                   <Text> longDescription: {this.state.item.longDescription}  </Text> 
+
                  <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
                  <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
+                 <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
+                 <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
+                 <Text> shortDescription: {this.state.item.shortDescription}  </Text> 
+
+                 
         </View> 
         
 
       </View>
         
+         
+           </ScrollView>
+      
       );
     }
   }
